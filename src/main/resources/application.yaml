@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: @project.name@
+    version: @project.version@
+server:
+  port: 8080
+  servlet:
+    context-path: /mini-autorizador/v1
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          include: diskSpace,ping
+          show-components: always
+          show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
