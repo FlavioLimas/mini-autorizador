@@ -2,6 +2,11 @@ spring:
   application:
     name: @project.name@
     version: @project.version@
+  data:
+    mongodb:
+      username: user
+      password: password
+      uri: mongodb://localhost:27017/miniautorizador
 server:
   port: 8080
   servlet:
