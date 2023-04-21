@@ -1,12 +1,19 @@
 spring:
+  devtools:
+    remote:
+      secret: 123
   application:
     name: @project.name@
     version: @project.version@
-  data:
-    mongodb:
-      username: user
-      password: password
-      uri: mongodb://localhost:27017/miniautorizador
+  datasource:
+    url: jdbc:mysql://localhost:3306/miniautorizador?useSSL=false
+    username: root
+    password: miniautorizador
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        ddl-auto: update
 server:
   port: 8080
   servlet:
