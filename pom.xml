@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.atorizepoc</groupId>
 	<artifactId>mini-autorizador</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>mini-autorizador</name>
 	<description>Mini Autorizador</description>
 	<properties>
@@ -21,7 +21,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -36,7 +35,22 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.4.10.Final</version>
+			<version>6.2.1.Final</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>6.0.0.Alpha7</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,15 +78,19 @@
 	</dependencies>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.7</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<excludeDevtools>false</excludeDevtools>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
@@ -88,23 +106,7 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>MiniAutorizadorApplication.java</exclude>
-						<exclude>AgendaDTO.java</exclude>
-						<exclude>AgendaSaveDTO.java</exclude>
-						<exclude>AssociateDTO.java</exclude>
-						<exclude>VotingSavedDTO.java</exclude>
-						<exclude>VotingEntityId.java</exclude>
-						<exclude>AgendaEntity.java</exclude>
-						<exclude>AssociateEntity.java</exclude>
-						<exclude>VotingEntity.java</exclude>
-						<exclude>AgendaRepository.java</exclude>
-						<exclude>AssociateRepository.java</exclude>
-						<exclude>VoteRepository.java</exclude>
-						<exclude>IAgendaService.java</exclude>
-						<exclude>IAssociateService.java</exclude>
-						<exclude>IVoteService.java</exclude>
-						<exclude>src/main/java/com/sicred/poc/model/**</exclude>
-						<exclude>src/main/java/com/sicred/poc/external/dto/**</exclude>
+						<exclude>**/MiniAutorizadorApplication.java</exclude>
 					</excludes>
 					<rules>
 						<rule>
