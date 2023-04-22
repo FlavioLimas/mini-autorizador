@@ -1,0 +1,35 @@
+spring:
+  devtools:
+    remote:
+      secret: 123
+  application:
+    name: @project.name@
+    version: @project.version@
+  datasource:
+    url: jdbc:mysql://localhost:3306/miniautorizador?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password: miniautorizador
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 8080
+  servlet:
+    context-path: /mini-autorizador/v1
+logging:
+  level:
+    project:
+      user:
+        UserClient: DEBUG
+management:
+  endpoint:
+    health:
+      group:
+        custom:
+          include: diskSpace,ping
+          show-components: always
+          show-details: always
+      probes:
+    livenessState:
+    readinessState:
+      enabled: true
