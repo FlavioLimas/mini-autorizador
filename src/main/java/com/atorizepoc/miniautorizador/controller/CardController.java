@@ -58,7 +58,7 @@ public class CardController {
                             schema = @Schema(implementation = CardDTO.class))
             })})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
-    public ResponseEntity<CardDTO> findByTitle(@PathParam("cardNumber") String cardNumber) {
+    public ResponseEntity<CardDTO> findByCardNumber(@PathParam("cardNumber") String cardNumber) {
         return ResponseEntity.ok(service.findByTitle(cardNumber));
     }
 
@@ -83,7 +83,7 @@ public class CardController {
             description = "Atualizão de Cartão",
             tags = {"Atualização"})
     @ApiResponse(responseCode = "200", description = "Atualizão de Cartão será efetivada somente se " +
-            "ID informado for válido")
+            "Numero do Cartão informado for válido")
     @ApiResponses(value = {
             @ApiResponse(content = {
                     @Content(mediaType = "application/json",
@@ -94,18 +94,18 @@ public class CardController {
         return ResponseEntity.ok(service.update(cardDTO));
     }
 
-    @Operation(summary = "Delete Cartão pelo Id",
-            description = "Delete Cartão pelo Id",
+    @Operation(summary = "Delete Cartão pelo Numero",
+            description = "Delete Cartão pelo Numero",
             tags = {"Delete"})
-    @ApiResponse(responseCode = "200", description = "Deleção de Cartão pelo Id")
+    @ApiResponse(responseCode = "200", description = "Deleção de Cartão pelo Numero")
     @ApiResponses(value = {
             @ApiResponse(content = {
                     @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Object.class))
             })})
-    @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable("id") Long id) {
-        service.deleteById(id);
+    @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
+    public ResponseEntity<Object> deleteByCardNumber(@PathVariable("cardNumber") String cardNumber) {
+        service.deleteByCardNumber(cardNumber);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

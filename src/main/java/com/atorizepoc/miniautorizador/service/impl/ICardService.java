@@ -16,6 +16,6 @@ public interface ICardService {
 
     CardDTO update(CardDTO cardDTO);
 
-    void deleteById(Long id);
+    void deleteByCardNumber(String cardNumber);
 
 }
