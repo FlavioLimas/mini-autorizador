@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Entidade para representar Pauta
+ * Entidade para representar Cartao
  */
 @Entity
 @Data
