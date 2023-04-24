@@ -54,7 +54,6 @@ public class CardMapper {
                 .build();
     }
 
-
     public CardSaveDTO fromSave(CardEntity card) {
         return CardSaveDTO.builder()
                 .numeroCartao(card.getNumber())
@@ -87,4 +86,5 @@ public class CardMapper {
         }
         return value;
     }
+
 }
