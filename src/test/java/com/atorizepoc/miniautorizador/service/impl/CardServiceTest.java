@@ -30,6 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class CardServiceTest {
@@ -152,6 +154,13 @@ class CardServiceTest {
         ClassCastException error = assertThrows(ClassCastException.class, () ->
                 service.update(cardDTOMock), "Assertion fail, Exception not throws");
         assertFalse(error.getMessage().isEmpty(), "Assertion fail, not exits message error");
+    }
+
+    @Test
+    @DisplayName("Should Pass When DeleteById Is Valid")
+    void testShouldPassWhenDeleteByIdIsValid() {
+        service.deleteByCardNumber("6549873025634501");
+        verify(repository, atMostOnce()).deleteByNumber("6549873025634501");
     }
 
 }

@@ -11,4 +11,6 @@ public interface CardRepository extends JpaRepository<CardEntity, Long> {
 
     Optional<CardEntity> findByNumber(String cardNumber);
 
+    void deleteByNumber(String cardNumber);
+
 }

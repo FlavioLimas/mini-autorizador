@@ -81,8 +81,10 @@ public class CardService implements ICardService {
     }
 
     @Override
+    @Transactional
+    @SneakyThrows
     public void deleteByCardNumber(String cardNumber) {
-
+        repository.deleteByNumber(cardNumber);
     }
 
     @SneakyThrows
