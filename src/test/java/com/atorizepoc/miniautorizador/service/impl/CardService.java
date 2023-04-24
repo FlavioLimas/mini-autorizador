@@ -2,6 +2,8 @@ package com.atorizepoc.miniautorizador.service.impl;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
+import com.atorizepoc.miniautorizador.mapper.CardMapper;
+import com.atorizepoc.miniautorizador.repository.CardRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class CardService implements ICardService {
+
+    private CardRepository repository;
+
+    private CardMapper mapper;
 
     @Override
     public List<CardDTO> getAll() {
