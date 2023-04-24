@@ -1,6 +1,7 @@
 package com.atorizepoc.miniautorizador.controller;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
+import com.atorizepoc.miniautorizador.service.impl.ICardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,6 +23,8 @@ import java.util.List;
 @AllArgsConstructor
 @CrossOrigin("*")
 public class CardController {
+
+    private ICardService service;
 
     @Operation(summary = "Listagem de Cartões",
             description = "Listagem de Cartões",
