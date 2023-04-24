@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum MiniAutorizationErrors {
 
     CARDS_NOT_FOUND("Cards Not Found"),
+    CARD_NOT_FOUND("Card Not Found"),
     ASSOCIATE_NOT_FOUND("Associate Not Found"),
     ASSOCIATE_NOT_SAVED("Associate Not Saved"),
     ASSOCIATE_NOT_UPDATED("Associate Not Updated"),

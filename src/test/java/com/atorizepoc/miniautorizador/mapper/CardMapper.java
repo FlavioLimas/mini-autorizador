@@ -22,4 +22,22 @@ public class CardMapper {
         return cardsDTO;
     }
 
+    public CardEntity to(CardDTO cardDTO) {
+        return CardEntity.builder()
+                .id(cardDTO.getId())
+                .number(cardDTO.getNumeroCartao())
+                .password(cardDTO.getSenha())
+                .value(cardDTO.getValor())
+                .build();
+    }
+
+    public CardDTO from(CardEntity card) {
+        return CardDTO.builder()
+                .id(card.getId())
+                .numeroCartao(card.getNumber())
+                .senha(card.getPassword())
+                .valor(card.getValue())
+                .build();
+    }
+
 }

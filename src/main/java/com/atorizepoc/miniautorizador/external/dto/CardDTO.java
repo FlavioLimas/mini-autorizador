@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 @Data
 public class CardDTO {
 
+    private Long id;
     private String numeroCartao;
     private String senha;
     private BigDecimal valor;

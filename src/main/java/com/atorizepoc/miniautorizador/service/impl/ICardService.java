@@ -10,7 +10,7 @@ public interface ICardService {
 
     List<CardDTO> getAll();
 
-    CardDTO findByTitle(String cardNumber);
+    CardDTO findByCardNumber(String cardNumber);
 
     ResponseEntity<CardSaveDTO> save(CardSaveDTO cardSaveDTO);
 

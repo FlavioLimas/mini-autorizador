@@ -36,8 +36,13 @@ public class CardService implements ICardService {
     }
 
     @Override
-    public CardDTO findByTitle(String cardNumber) {
-        return null;
+    @SneakyThrows
+    public CardDTO findByCardNumber(String cardNumber) {
+        checkValue(cardNumber);
+        log.info("Find By Card Number " + cardNumber);
+        CardEntity card = repository.findByNumber(cardNumber).orElseThrow(() ->
+                new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_FOUND));
+        return mapper.from(card);
     }
 
     @Override
@@ -55,4 +60,11 @@ public class CardService implements ICardService {
 
     }
 
+    @SneakyThrows
+    private static void checkValue(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            log.error("Value Invalid " + value);
+            throw new MiniAutorizationException(MiniAutorizationErrors.VALUE_INVALID);
+        }
+    }
 }

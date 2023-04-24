@@ -59,7 +59,7 @@ public class CardController {
             })})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
     public ResponseEntity<CardDTO> findByCardNumber(@PathParam("cardNumber") String cardNumber) {
-        return ResponseEntity.ok(service.findByTitle(cardNumber));
+        return ResponseEntity.ok(service.findByCardNumber(cardNumber));
     }
 
     @Operation(summary = "Inclusão de Cartão",
