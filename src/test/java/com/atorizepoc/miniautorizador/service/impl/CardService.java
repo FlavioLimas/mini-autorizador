@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -41,12 +42,14 @@ public class CardService implements ICardService {
 
     @Override
     @SneakyThrows
-    public CardDTO findByCardNumber(String cardNumber) {
+    public ResponseEntity<Object> findByCardBalance(String cardNumber) {
         checkValue(cardNumber);
         log.info("Find By Card Number " + cardNumber);
-        CardEntity card = repository.findByNumber(cardNumber).orElseThrow(() ->
-                new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_FOUND));
-        return mapper.from(card);
+        Optional<BigDecimal> existsCardBalance = repository.findByValue(cardNumber);
+        if (existsCardBalance.isEmpty()) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(422).value()).build();
+        }
+        return ResponseEntity.ok(existsCardBalance.map(BigDecimal::toEngineeringString));
     }
 
     @Override
@@ -62,8 +65,7 @@ public class CardService implements ICardService {
                     .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_SAVED));
             return ResponseEntity.created(URI.create("/card/save")).body(mapper.fromSave(cardSaved));
         }
-        return ResponseEntity.status(
-                HttpStatusCode.valueOf(422).value()).body(mapper.fromSave(existsCardNumber.get())
+        return ResponseEntity.unprocessableEntity().body(mapper.fromSave(existsCardNumber.get())
         );
     }
 

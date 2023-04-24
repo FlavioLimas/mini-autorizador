@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/card")
+@RequestMapping(path = "/cartoes")
 @AllArgsConstructor
 @CrossOrigin("*")
 public class CardController {
@@ -48,25 +48,25 @@ public class CardController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @Operation(summary = "Pesquisa por Cartão",
-            description = "Pesquisa por Cartão",
+    @Operation(summary = "Pesquisa Saldo do Cartão",
+            description = "Pesquisa Saldo do Cartão",
             tags = {"Pesquisa por nome"})
-    @ApiResponse(responseCode = "200", description = "Pesquisa por Cartão")
+    @ApiResponse(responseCode = "200", description = "Pesquisa Saldo do Cartão")
     @ApiResponses(value = {
             @ApiResponse(content = {
                     @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CardDTO.class))
+                            schema = @Schema(implementation = Object.class))
             })})
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
-    public ResponseEntity<CardDTO> findByCardNumber(@PathParam("cardNumber") String cardNumber) {
-        return ResponseEntity.ok(service.findByCardNumber(cardNumber));
+    public ResponseEntity<Object> findByCardBalance(@PathParam("cardNumber") String cardNumber) {
+        return service.findByCardBalance(cardNumber);
     }
 
     @Operation(summary = "Inclusão de Cartão",
             description = "Inclusão de Cartão",
-            tags = {"Criação de Cartão"})
+            tags = {"Criação"})
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Retorna o Cartão se já houver " +
+            @ApiResponse(responseCode = "422", description = "Retorna o Cartão se já houver " +
                     "cadastrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CardDTO.class))),
@@ -74,7 +74,7 @@ public class CardController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CardDTO.class)))
     })
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/save")
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CardSaveDTO> save(@RequestBody CardSaveDTO cardSaveDTO) {
         return service.save(cardSaveDTO);
     }
@@ -101,10 +101,10 @@ public class CardController {
     @ApiResponses(value = {
             @ApiResponse(content = {
                     @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Object.class))
+                            schema = @Schema(implementation = java.lang.Object.class))
             })})
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
-    public ResponseEntity<Object> deleteByCardNumber(@PathVariable("cardNumber") String cardNumber) {
+    public ResponseEntity<java.lang.Object> deleteByCardNumber(@PathVariable("cardNumber") String cardNumber) {
         service.deleteByCardNumber(cardNumber);
         return ResponseEntity.ok(HttpStatus.OK);
     }

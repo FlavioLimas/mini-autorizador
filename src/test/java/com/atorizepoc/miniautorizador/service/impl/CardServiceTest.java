@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -71,24 +72,20 @@ class CardServiceTest {
     }
 
     @Test
-    @DisplayName("Should Pass When Throw CARD_NOT_FOUND")
-    @SneakyThrows
+    @DisplayName("Should Pass When FindByCardBalance Return 422")
     void testShouldPassWhenFindByCardNumberNotFound() {
         when(repository.findByNumber(anyString())).thenReturn(Optional.empty());
-        MiniAutorizationException error = assertThrows(MiniAutorizationException.class, () ->
-                service.findByCardNumber("6549873025634501"), "Assertion fail, Exception not throws");
-        assertEquals(MiniAutorizationErrors.CARD_NOT_FOUND.getMessage(), error.getMessage(),
-                "Assertion fail, message error invalid");
+        ResponseEntity<Object> response = service.findByCardBalance("6549873025634501");
+        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, response.getStatusCode(),
+                "Assertion fail, value invalid");
     }
 
     @Test
-    @DisplayName("Should Pass When FindByCardNumber CardNumber Is Valid")
-    void testShouldPassWhenFindByCardNumberIsValid() {
-        CardEntity card = CardTemplate.validCardEntity();
-        when(repository.findByNumber(anyString())).thenReturn(Optional.of(card));
-        when(mapper.from(any(CardEntity.class))).thenReturn(CardTemplate.validCardDTO());
-        CardDTO cardDTO = service.findByCardNumber("6549873025634501");
-        assertEquals(card.getNumber(), cardDTO.getNumeroCartao(),
+    @DisplayName("Should Pass When FindByCardNumber Return 200")
+    void testShouldPassWhenFindByCardBalanceIsValid() {
+        when(repository.findByValue(anyString())).thenReturn(Optional.of(BigDecimal.TEN));
+        ResponseEntity<Object> response = service.findByCardBalance("6549873025634501");
+        assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, value invalid");
     }
 

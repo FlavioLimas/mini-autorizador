@@ -13,11 +13,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -43,9 +45,10 @@ class CardControllerTest {
     }
 
     @Test
-    @DisplayName("Should Pass When FindByTitle OK")
-    void testShouldPassWhenFindByTitleOK() {
-        ResponseEntity<CardDTO> response = controller.findByCardNumber("6549873025634501");
+    @DisplayName("Should Pass When FindByCardBalance OK")
+    void testShouldPassWhenFindByCardBalanceOK() {
+        when(service.findByCardBalance(anyString())).thenReturn(ResponseEntity.ok(BigDecimal.TEN));
+        ResponseEntity<Object> response = controller.findByCardBalance("6549873025634501");
         assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, response status invalid");
     }
@@ -73,7 +76,7 @@ class CardControllerTest {
     @Test
     @DisplayName("Should Pass When Delete OK")
     void testShouldPassWhenDeleteOK() {
-        ResponseEntity<Object> response = controller.deleteByCardNumber("6549873025634501");
+        ResponseEntity<java.lang.Object> response = controller.deleteByCardNumber("6549873025634501");
         verify(service, atMostOnce()).deleteByCardNumber("6549873025634501");
         assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, response status invalid");
