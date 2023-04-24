@@ -33,4 +33,13 @@ public class CardTemplate {
                 .build();
     }
 
+    public static CardDTO validCardDTOUpdate() {
+        return CardDTO.builder()
+                .id(1L)
+                .numeroCartao("6549873025634850")
+                .senha("4321")
+                .valor(BigDecimal.valueOf(450.90))
+                .build();
+    }
+
 }

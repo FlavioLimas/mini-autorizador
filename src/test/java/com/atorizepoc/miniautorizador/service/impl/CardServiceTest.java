@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -114,6 +115,43 @@ class CardServiceTest {
         ResponseEntity<CardSaveDTO> response = service.save(CardTemplate.validCardSaveDTO());
         assertEquals(422, response.getStatusCode().value(),
                 "Assertion fail, status code invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Update CardDTO Is Valid")
+    void testShouldPassWhenUpdateAgendaDTOIsValid() {
+        CardDTO cardDTOMock = CardTemplate.validCardDTOUpdate();
+        CardEntity card = CardTemplate.validCardEntity();
+        when(repository.findById(any())).thenReturn(Optional.of(card));
+        when(mapper.toUpdate(any(), any())).thenReturn(card);
+        when(repository.save(any())).thenReturn(card);
+        when(mapper.from(any(CardEntity.class))).thenReturn(cardDTOMock);
+
+        CardDTO cardDTO = service.update(cardDTOMock);
+        assertEquals(cardDTOMock.getId(), cardDTO.getId(),
+                "Assertion fail, value invalid");
+        assertEquals(cardDTOMock.getNumeroCartao(), cardDTO.getNumeroCartao(),
+                "Assertion fail, value invalid");
+        assertEquals(cardDTOMock.getSenha(), cardDTO.getSenha(),
+                "Assertion fail, value invalid");
+        assertEquals(cardDTOMock.getValor(), cardDTO.getValor(),
+                "Assertion fail, value invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Throw CARD_NOT_UPDATED")
+    @SneakyThrows
+    void testShouldPassWhenThrowAgendaNotUpdated() {
+        CardDTO cardDTOMock = CardTemplate.validCardDTOUpdate();
+        CardEntity card = CardTemplate.validCardEntity();
+        when(repository.findById(any())).thenReturn(Optional.of(card));
+        when(mapper.toUpdate(any(), any())).thenReturn(card);
+        when(repository.save(any()))
+                .thenReturn(Optional.of(new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_UPDATED)));
+
+        ClassCastException error = assertThrows(ClassCastException.class, () ->
+                service.update(cardDTOMock), "Assertion fail, Exception not throws");
+        assertFalse(error.getMessage().isEmpty(), "Assertion fail, not exits message error");
     }
 
 }

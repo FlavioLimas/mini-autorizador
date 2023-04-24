@@ -68,8 +68,16 @@ public class CardService implements ICardService {
     }
 
     @Override
+    @SneakyThrows
+    @Transactional
     public CardDTO update(CardDTO cardDTO) {
-        return null;
+        CardEntity oldCard = repository.findById(cardDTO.getId())
+                .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_FOUND));
+        log.info("Update Card new value " + cardDTO + " old value " + oldCard);
+        CardEntity cardEntity = mapper.toUpdate(oldCard, cardDTO);
+        CardEntity cardEntitySaved = Optional.of(repository.save(cardEntity))
+                .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_UPDATED));
+        return mapper.from(cardEntitySaved);
     }
 
     @Override

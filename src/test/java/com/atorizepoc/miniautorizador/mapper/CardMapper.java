@@ -1,8 +1,11 @@
 package com.atorizepoc.miniautorizador.mapper;
 
+import com.atorizepoc.miniautorizador.exception.MiniAutorizationErrors;
+import com.atorizepoc.miniautorizador.exception.MiniAutorizationException;
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
 import com.atorizepoc.miniautorizador.model.CardEntity;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -59,4 +62,29 @@ public class CardMapper {
                 .build();
     }
 
+    @SneakyThrows
+    public CardEntity toUpdate(CardEntity oldCard, CardDTO newCard) {
+        return CardEntity.builder()
+                .id(oldCard.getId())
+                .number(isDifferent(newCard.getNumeroCartao(), oldCard.getNumber()))
+                .password(isDifferent(newCard.getSenha(), oldCard.getPassword()))
+                .value(new BigDecimal(isDifferent(newCard.getValor().toEngineeringString(),
+                        oldCard.getValue().toEngineeringString())))
+                .build();
+    }
+
+    private static String isDifferent(String newValue, String oldValue) {
+        if (newValue != null && !newValue.equals(oldValue))
+            return isValid(newValue);
+        else
+            return isValid(oldValue);
+    }
+
+    @SneakyThrows
+    private static String isValid(String value) {
+        if (value.trim().isEmpty()) {
+            throw new MiniAutorizationException(MiniAutorizationErrors.VALUE_INVALID);
+        }
+        return value;
+    }
 }
