@@ -3,6 +3,7 @@ package com.atorizepoc.miniautorizador.service.impl;
 import com.atorizepoc.miniautorizador.exception.MiniAutorizationErrors;
 import com.atorizepoc.miniautorizador.exception.MiniAutorizationException;
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
+import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
 import com.atorizepoc.miniautorizador.mapper.CardMapper;
 import com.atorizepoc.miniautorizador.model.CardEntity;
 import com.atorizepoc.miniautorizador.repository.CardRepository;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -84,6 +87,33 @@ class CardServiceTest {
         CardDTO cardDTO = service.findByCardNumber("6549873025634501");
         assertEquals(card.getNumber(), cardDTO.getNumeroCartao(),
                 "Assertion fail, value invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Response Status CREATED")
+    void testShouldPassWhenResponseStatusCREATED() {
+        CardEntity cardMock = CardTemplate.validCardEntity();
+        when(repository.findByNumber(anyString()))
+                .thenReturn(Optional.empty());
+        when(mapper.toSave(any())).thenReturn(cardMock);
+        when(repository.save(any())).thenReturn(cardMock);
+        when(mapper.fromSave(any(CardEntity.class))).thenReturn(CardTemplate.validCardSaveDTO());
+
+        ResponseEntity<CardSaveDTO> response = service.save(CardTemplate.validCardSaveDTO());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode(),
+                "Assertion fail, status code invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Response Status 422")
+    void testShouldPassWhenResponseStatusOK() {
+        CardEntity cardMock = CardTemplate.validCardEntity();
+        when(repository.findByNumber(anyString()))
+                .thenReturn(Optional.of(cardMock));
+
+        ResponseEntity<CardSaveDTO> response = service.save(CardTemplate.validCardSaveDTO());
+        assertEquals(422, response.getStatusCode().value(),
+                "Assertion fail, status code invalid");
     }
 
 }

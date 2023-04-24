@@ -1,11 +1,14 @@
 package com.atorizepoc.miniautorizador.mapper;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
+import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
 import com.atorizepoc.miniautorizador.model.CardEntity;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CardMapper {
@@ -37,6 +40,22 @@ public class CardMapper {
                 .numeroCartao(card.getNumber())
                 .senha(card.getPassword())
                 .valor(card.getValue())
+                .build();
+    }
+
+    public CardEntity toSave(CardSaveDTO cardSaveDTO) {
+        return CardEntity.builder()
+                .number(cardSaveDTO.getNumeroCartao())
+                .password(cardSaveDTO.getSenha())
+                .value(BigDecimal.valueOf(500))
+                .build();
+    }
+
+
+    public CardSaveDTO fromSave(CardEntity card) {
+        return CardSaveDTO.builder()
+                .numeroCartao(card.getNumber())
+                .senha(card.getPassword())
                 .build();
     }
 

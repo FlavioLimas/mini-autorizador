@@ -10,10 +10,14 @@ import com.atorizepoc.miniautorizador.repository.CardRepository;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -46,8 +50,21 @@ public class CardService implements ICardService {
     }
 
     @Override
+    @SneakyThrows
+    @Transactional
     public ResponseEntity<CardSaveDTO> save(CardSaveDTO cardSaveDTO) {
-        return null;
+        checkValue(cardSaveDTO.getNumeroCartao());
+        Optional<CardEntity> existsCardNumber = repository.findByNumber(cardSaveDTO.getNumeroCartao());
+        if (existsCardNumber.isEmpty()) {
+            CardEntity card = mapper.toSave(cardSaveDTO);
+            log.info("Save Card " + card);
+            CardEntity cardSaved = Optional.of(repository.save(card))
+                    .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_SAVED));
+            return ResponseEntity.created(URI.create("/card/save")).body(mapper.fromSave(cardSaved));
+        }
+        return ResponseEntity.status(
+                HttpStatusCode.valueOf(422).value()).body(mapper.fromSave(existsCardNumber.get())
+        );
     }
 
     @Override
@@ -67,4 +84,5 @@ public class CardService implements ICardService {
             throw new MiniAutorizationException(MiniAutorizationErrors.VALUE_INVALID);
         }
     }
+
 }
