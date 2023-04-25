@@ -19,6 +19,7 @@ public class CardMapper {
         List<CardDTO> cardsDTO = new ArrayList<>();
         cards.forEach(card ->
                 cardsDTO.add(CardDTO.builder()
+                        .id(card.getId())
                         .numeroCartao(card.getNumber())
                         .senha(card.getPassword())
                         .valor(card.getValue())
