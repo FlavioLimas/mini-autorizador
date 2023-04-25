@@ -102,11 +102,11 @@ class CardServiceTest {
     }
 
     @Test
-    @DisplayName("Should Pass When FindByCardBalance Return 422")
-    void testShouldPassWhenFindByCardNumberNotFound() {
+    @DisplayName("Should Pass When FindByCardBalance Return 404")
+    void testShouldPassWhenFindByCardBalanceNotFound() {
         when(repository.findByNumber(anyString())).thenReturn(Optional.empty());
         ResponseEntity<Object> response = service.findByCardBalance("6549873025634501");
-        assertEquals(HttpStatus.UNPROCESSABLE_ENTITY, response.getStatusCode(),
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode(),
                 "Assertion fail, value invalid");
     }
 
