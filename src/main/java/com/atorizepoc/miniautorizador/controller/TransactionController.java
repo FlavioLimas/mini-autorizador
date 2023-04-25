@@ -1,6 +1,5 @@
 package com.atorizepoc.miniautorizador.controller;
 
-import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.TransactionalDTO;
 import com.atorizepoc.miniautorizador.service.ITransactionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,7 +31,7 @@ public class TransactionController {
             @ApiResponse(responseCode = "422", description = "Alguma regra de autorização Saldo Insuficiente" +
                     " ou Senha Inválida ou Cartão Inexistente",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CardDTO.class))),
+                            schema = @Schema(implementation = Object.class))),
             @ApiResponse(responseCode = "201", description = "Realiza Transação",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Object.class)))
