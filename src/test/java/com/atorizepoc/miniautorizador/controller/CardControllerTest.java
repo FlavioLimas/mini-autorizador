@@ -39,6 +39,7 @@ class CardControllerTest {
     @Test
     @DisplayName("Should Pass When GetAll OK")
     void testShouldPassWhenGetAllOK() {
+        when(service.getAll()).thenReturn(List.of(CardTemplate.validCardDTO()));
         ResponseEntity<List<CardDTO>> response = controller.getAll();
         assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, response status invalid");
