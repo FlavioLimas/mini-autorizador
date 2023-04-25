@@ -80,7 +80,8 @@ public class CardController {
     }
 
     @Operation(summary = "Atualizão de Cartão",
-            description = "Atualizão de Cartão",
+            description = "Atualizão de Cartão será efetivada somente se Numero do Cartão informado " +
+                    "for válido",
             tags = {"Atualização"})
     @ApiResponse(responseCode = "200", description = "Atualizão de Cartão será efetivada somente se " +
             "Numero do Cartão informado for válido")
