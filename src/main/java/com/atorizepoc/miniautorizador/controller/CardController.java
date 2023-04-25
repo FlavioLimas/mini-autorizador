@@ -54,10 +54,8 @@ public class CardController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pesquisa Saldo Válido do Cartão",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CardDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Pesquisa Saldo Inválido do Cartão",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CardDTO.class)))
+                            schema = @Schema(implementation = Object.class))),
+            @ApiResponse(responseCode = "404", description = "Pesquisa Saldo Inválido do Cartão")
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{cardNumber}")
     public ResponseEntity<Object> findByCardBalance(@PathParam("cardNumber") String cardNumber) {
