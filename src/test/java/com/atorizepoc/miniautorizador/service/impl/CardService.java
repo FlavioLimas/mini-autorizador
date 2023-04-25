@@ -42,6 +42,16 @@ public class CardService implements ICardService {
 
     @Override
     @SneakyThrows
+    public CardDTO findByNumber(String cardNumber) {
+        checkValue(cardNumber);
+        log.info("Find By Card Number " + cardNumber);
+        CardEntity existsCardBalance = repository.findByNumber(cardNumber).orElseThrow(() ->
+                new MiniAutorizationException(MiniAutorizationErrors.NON_EXISTENT_CARD));
+        return mapper.from(existsCardBalance);
+    }
+
+    @Override
+    @SneakyThrows
     public ResponseEntity<Object> findByCardBalance(String cardNumber) {
         checkValue(cardNumber);
         log.info("Find By Card Number " + cardNumber);
@@ -74,7 +84,7 @@ public class CardService implements ICardService {
     @Transactional
     public CardDTO update(CardDTO cardDTO) {
         CardEntity oldCard = repository.findById(cardDTO.getId())
-                .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.CARD_NOT_FOUND));
+                .orElseThrow(() -> new MiniAutorizationException(MiniAutorizationErrors.NON_EXISTENT_CARD));
         log.info("Update Card new value " + cardDTO + " old value " + oldCard);
         CardEntity cardEntity = mapper.toUpdate(oldCard, cardDTO);
         CardEntity cardEntitySaved = Optional.of(repository.save(cardEntity))

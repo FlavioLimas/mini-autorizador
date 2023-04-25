@@ -61,6 +61,36 @@ class CardServiceTest {
     }
 
     @Test
+    @DisplayName("Should Pass When FindByNumber Throw NON_EXISTENT_CARD")
+    @SneakyThrows
+    void testShouldPassWhenThrowNON_EXISTENT_CARD() {
+        when(repository.findByNumber(anyString())).thenReturn(Optional.empty());
+        MiniAutorizationException error = assertThrows(MiniAutorizationException.class, () ->
+                service.findByNumber(CardTemplate.validCardDTO().getNumeroCartao()),
+                "Assertion fail, Exception not throws");
+        assertEquals(MiniAutorizationErrors.NON_EXISTENT_CARD.getMessage(), error.getMessage(),
+                "Assertion fail, message error invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When FindByNumber Return CardDTO Is Valid")
+    @SneakyThrows
+    void testShouldPassWhenFindByNumberReturnCardDTO() {
+        CardEntity card = CardTemplate.validCardEntity();
+        card.setValue(BigDecimal.valueOf(10.5));
+        when(repository.findByNumber(anyString())).thenReturn(Optional.of(card));
+        when(mapper.from(any(CardEntity.class))).thenReturn(CardTemplate.validCardDTO());
+        CardDTO cardDTO = service.findByNumber(card.getNumber());
+        assertEquals(card.getId(), cardDTO.getId(),"Assertion fail, message error invalid");
+        assertEquals(card.getNumber(), cardDTO.getNumeroCartao(),
+                "Assertion fail, message error invalid");
+        assertEquals(card.getPassword(), cardDTO.getSenha(),
+                "Assertion fail, message error invalid");
+        assertEquals(card.getValue(), cardDTO.getValor(),
+                "Assertion fail, message error invalid");
+    }
+
+    @Test
     @DisplayName("Should Pass When GetAll Throw New CARDS_NOT_FOUND")
     @SneakyThrows
     void testShouldPassWhenGetAllThrowCardsNotFound() {
