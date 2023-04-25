@@ -113,7 +113,7 @@ class CardServiceTest {
     @Test
     @DisplayName("Should Pass When FindByCardNumber Return 200")
     void testShouldPassWhenFindByCardBalanceIsValid() {
-        when(repository.findByValue(anyString())).thenReturn(Optional.of(BigDecimal.TEN));
+        when(repository.findByNumber(anyString())).thenReturn(Optional.of(CardTemplate.validCardEntity()));
         ResponseEntity<Object> response = service.findByCardBalance("6549873025634501");
         assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, value invalid");

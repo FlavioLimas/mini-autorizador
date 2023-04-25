@@ -56,7 +56,8 @@ public class CardService implements ICardService {
     public ResponseEntity<Object> findByCardBalance(String cardNumber) {
         checkValue(cardNumber);
         log.info("Find By Card Number " + cardNumber);
-        Optional<BigDecimal> existsCardBalance = repository.findByValue(cardNumber);
+        Optional<BigDecimal> existsCardBalance = repository.findByNumber(cardNumber)
+                .map(CardEntity::getValue);
         if (existsCardBalance.isEmpty()) {
             return ResponseEntity.status(HttpStatusCode.valueOf(404).value()).build();
         }
