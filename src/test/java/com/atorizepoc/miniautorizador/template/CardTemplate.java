@@ -2,6 +2,7 @@ package com.atorizepoc.miniautorizador.template;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
+import com.atorizepoc.miniautorizador.external.dto.TransactionalDTO;
 import com.atorizepoc.miniautorizador.model.CardEntity;
 
 import java.math.BigDecimal;
@@ -39,6 +40,14 @@ public class CardTemplate {
                 .numeroCartao("6549873025634850")
                 .senha("4321")
                 .valor(BigDecimal.valueOf(450.90))
+                .build();
+    }
+
+    public static TransactionalDTO validTransactionalDTO() {
+        return TransactionalDTO.builder()
+                .numeroCartao("6549873025634850")
+                .senhaCartao("1234")
+                .valor(BigDecimal.valueOf(56.40))
                 .build();
     }
 
