@@ -1,4 +1,4 @@
-package com.atorizepoc.miniautorizador.service.impl;
+package com.atorizepoc.miniautorizador.service;
 
 import com.atorizepoc.miniautorizador.external.dto.TransactionalDTO;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,7 @@ package com.atorizepoc.miniautorizador.controller;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
-import com.atorizepoc.miniautorizador.service.impl.ICardService;
+import com.atorizepoc.miniautorizador.service.ICardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -7,6 +7,7 @@ import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
 import com.atorizepoc.miniautorizador.mapper.CardMapper;
 import com.atorizepoc.miniautorizador.model.CardEntity;
 import com.atorizepoc.miniautorizador.repository.CardRepository;
+import com.atorizepoc.miniautorizador.service.ICardService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

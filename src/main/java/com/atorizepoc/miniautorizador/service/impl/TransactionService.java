@@ -4,6 +4,8 @@ import com.atorizepoc.miniautorizador.exception.MiniAutorizationErrors;
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.TransactionalDTO;
 import com.atorizepoc.miniautorizador.mapper.TransactionMapper;
+import com.atorizepoc.miniautorizador.service.ICardService;
+import com.atorizepoc.miniautorizador.service.ITransactionService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

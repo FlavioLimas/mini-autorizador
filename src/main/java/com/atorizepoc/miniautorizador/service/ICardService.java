@@ -1,4 +1,4 @@
-package com.atorizepoc.miniautorizador.service.impl;
+package com.atorizepoc.miniautorizador.service;
 
 import com.atorizepoc.miniautorizador.external.dto.CardDTO;
 import com.atorizepoc.miniautorizador.external.dto.CardSaveDTO;
