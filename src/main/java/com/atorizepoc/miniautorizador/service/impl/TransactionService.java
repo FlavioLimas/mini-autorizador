@@ -29,7 +29,9 @@ public class TransactionService implements ITransactionService {
     public ResponseEntity<Object> executeTransaction(TransactionalDTO transactionalDTO) {
         CardDTO existsCardDTO = cardService.findByNumber(transactionalDTO.getNumeroCartao());
         ResponseEntity<Object> response = checkTransaction(transactionalDTO, existsCardDTO);
-        cardService.update(mapper.to(transactionalDTO, existsCardDTO));
+        if (HttpStatus.CREATED == response.getStatusCode()) {
+            cardService.update(mapper.to(transactionalDTO, existsCardDTO));
+        }
         return response;
     }
 
