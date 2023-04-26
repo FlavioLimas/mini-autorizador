@@ -3,7 +3,7 @@ spring:
     remote:
       secret: 123
   application:
-    name: @project.name@
+    name: mini-autorizador
     version: @project.version@
   datasource:
     url: jdbc:mysql://localhost:3306/miniautorizador?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true

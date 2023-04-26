@@ -4,15 +4,13 @@ import lombok.Getter;
 
 public enum MiniAutorizationErrors {
 
-    AGENDA_NOT_FOUND("Agenda Not Found"),
-    ASSOCIATE_NOT_FOUND("Associate Not Found"),
-    ASSOCIATE_NOT_SAVED("Associate Not Saved"),
-    ASSOCIATE_NOT_UPDATED("Associate Not Updated"),
+    CARDS_NOT_FOUND("Cards Not Found"),
+    NON_EXISTENT_CARD("Cartao Inexistente"),
+    INVALID_PASSWORD("Senha Invalida"),
+    INSUFFICIENT_FUNDS("Saldo Insuficiente"),
     VALUE_INVALID("Value Invalid"),
-    AGENDA_NOT_SAVED("Agenda Not Saved"),
-    AGENDA_NOT_UPDATED("Agenda Not Updated"),
-    ID_MUST_NOT_BE_NULL_WHEN_UPDATE("Id Must Not Be Null When Update"),
-    VOTE_INVALID("Vote Invalid");
+    CARD_NOT_SAVED("Card Not Saved"),
+    CARD_NOT_UPDATED("Card Not Updated");
 
     @Getter
     private String message;
