@@ -7,7 +7,7 @@ import com.atorizepoc.miniautorizador.external.dto.TransactionalDTO;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.math.BigDecimal;
 
 @Component
 public class TransactionMapper {
@@ -18,9 +18,16 @@ public class TransactionMapper {
                 .id(existscardDTO.getId())
                 .numeroCartao(isValid(transactionalDTO.getNumeroCartao()))
                 .senha(isValid(transactionalDTO.getSenhaCartao()))
-                .valor(Optional.of(transactionalDTO.getValor()).orElseThrow(() ->
-                        new MiniAutorizationException(MiniAutorizationErrors.VALUE_INVALID)))
+                .valor(subtractValue(transactionalDTO.getValor(), existscardDTO.getValor()))
                 .build();
+    }
+
+    @SneakyThrows
+    private static BigDecimal subtractValue(BigDecimal valueTransaction, BigDecimal existsValor) {
+        BigDecimal value = existsValor.subtract(valueTransaction);
+        if (value.compareTo(valueTransaction) <= 0)
+            throw new MiniAutorizationException(MiniAutorizationErrors.INSUFFICIENT_FUNDS);
+        return value;
     }
 
     @SneakyThrows

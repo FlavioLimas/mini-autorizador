@@ -57,6 +57,7 @@ class TransactionServiceTest {
     @DisplayName("Should Pass When Throw SENHA_INVALIDA")
     void testShouldPassWhenThrowSENHA_INVALIDA() {
         TransactionalDTO transactionalDTO = CardTemplate.validTransactionalDTO();
+        transactionalDTO.setValor(BigDecimal.valueOf(5.60));
         CardDTO existscardDTO = CardTemplate.validCardDTO();
         existscardDTO.setSenha("9999");
         when(cardService.findByNumber(anyString())).thenReturn(existscardDTO);
@@ -72,6 +73,7 @@ class TransactionServiceTest {
     @DisplayName("Should Pass When ExecuteTransaction OK")
     void testShouldPassWhenExecuteTransactionOK() {
         TransactionalDTO transactionalDTO = CardTemplate.validTransactionalDTO();
+        transactionalDTO.setValor(BigDecimal.valueOf(5.60));
         when(cardService.findByNumber(anyString())).thenReturn(CardTemplate.validCardDTO());
         when(mapper.to(any(), any())).thenReturn(CardTemplate.validCardDTO());
 

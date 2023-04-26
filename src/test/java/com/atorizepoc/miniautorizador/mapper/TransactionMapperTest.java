@@ -29,7 +29,7 @@ class TransactionMapperTest {
         TransactionalDTO transactionalDTO = CardTemplate.validTransactionalDTO();
         CardDTO cardDTOMock = CardTemplate.validCardDTO();
         cardDTOMock.setNumeroCartao("6549873025634850");
-        cardDTOMock.setValor(BigDecimal.valueOf(56.40));
+        cardDTOMock.setValor(BigDecimal.valueOf(500));
         CardDTO cardDTO = mapper.to(transactionalDTO, cardDTOMock);
         assertEquals(cardDTOMock.getId(), cardDTO.getId(),
                 "Assertion fail, value invalid");
@@ -37,7 +37,7 @@ class TransactionMapperTest {
                 "Assertion fail, value invalid");
         assertEquals(cardDTOMock.getSenha(), cardDTO.getSenha(),
                 "Assertion fail, value invalid");
-        assertEquals(cardDTOMock.getValor(), cardDTO.getValor(),
+        assertEquals(BigDecimal.valueOf(443.6), cardDTO.getValor(),
                 "Assertion fail, value invalid");
     }
 

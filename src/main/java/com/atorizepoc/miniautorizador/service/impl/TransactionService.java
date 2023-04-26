@@ -35,7 +35,7 @@ public class TransactionService implements ITransactionService {
 
     @SneakyThrows
     private ResponseEntity<Object> checkTransaction(TransactionalDTO transactionalDTO, CardDTO existsCardDTO) {
-        if (0 == existsCardDTO.getValor().intValue()) {
+        if (existsCardDTO.getValor().compareTo(transactionalDTO.getValor()) <= 0) {
             log.info("Saldo existente " + existsCardDTO.getValor() + " Valor da transação " +
                     transactionalDTO.getValor());
             return ResponseEntity.unprocessableEntity()
