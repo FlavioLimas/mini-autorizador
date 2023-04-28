@@ -28,11 +28,7 @@ public class TransactionService implements ITransactionService {
     @SneakyThrows
     public ResponseEntity<Object> executeTransaction(TransactionalDTO transactionalDTO) {
         CardDTO existsCardDTO = cardService.findByNumber(transactionalDTO.getNumeroCartao());
-        ResponseEntity<Object> response = checkTransaction(transactionalDTO, existsCardDTO);
-        if (HttpStatus.CREATED == response.getStatusCode()) {
-            cardService.update(mapper.to(transactionalDTO, existsCardDTO));
-        }
-        return response;
+        return checkTransaction(transactionalDTO, existsCardDTO);
     }
 
     @SneakyThrows
@@ -48,6 +44,7 @@ public class TransactionService implements ITransactionService {
             return ResponseEntity.unprocessableEntity()
                     .body(MiniAutorizationErrors.INVALID_PASSWORD.getMessage());
         }
+        cardService.update(mapper.to(transactionalDTO, existsCardDTO));
         return ResponseEntity.created(URI.create("/transacoes")).body(HttpStatus.OK);
     }
 }
