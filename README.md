@@ -2,6 +2,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Sonarqube tech debt](https://img.shields.io/sonar/https/sonarqube.com/org.testng:testng/tech_debt.svg?label=Sonarqube%20tech%20debt)](https://sonarqube.com/dashboard/index?id=org.testng:testng)
 [![Sonarqube Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=org.testng%3Atestng&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.testng%3Atestng)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
 
 #Teste de programação - VR Benefícios
 
