@@ -6,6 +6,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
+
 #Teste de programação - VR Benefícios
 
 Como parte do processo de seleção, gostaríamos que você desenvolvesse um pequeno sistema, para que possamos ver melhor o seu trabalho.
