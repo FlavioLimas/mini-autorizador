@@ -2,7 +2,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Sonarqube tech debt](https://img.shields.io/sonar/https/sonarqube.com/org.testng:testng/tech_debt.svg?label=Sonarqube%20tech%20debt)](https://sonarqube.com/dashboard/index?id=org.testng:testng)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
-
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=coverage)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
 #Teste de programação - VR Benefícios
 
 Como parte do processo de seleção, gostaríamos que você desenvolvesse um pequeno sistema, para que possamos ver melhor o seu trabalho.
