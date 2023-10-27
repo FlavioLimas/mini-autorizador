@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - develop
-      - feat/*
+      - release/*
       - feature/*
   pull_request:
     types: [opened, synchronize, reopened]
