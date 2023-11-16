@@ -18,7 +18,7 @@ public class ExceptionMapper {
     }
 
     @SneakyThrows
-    public Exception fromExcepition(RuntimeException e) {
+    public Exception isInstanceOfExcepition(RuntimeException e) {
         if (e instanceof Exception) {
             return e;
         }

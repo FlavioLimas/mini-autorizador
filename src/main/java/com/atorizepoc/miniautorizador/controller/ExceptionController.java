@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ExceptionController extends ResponseEntityExceptionHandler {
 
     private ExceptionMapper exceptionMapper;
@@ -27,8 +27,9 @@ public class ExceptionController extends ResponseEntityExceptionHandler {
     })
     @ExceptionHandler
     public ResponseEntity<Object> exceptionHandler(RuntimeException e, WebRequest request) {
-        return handleExceptionInternal(exceptionMapper.fromExcepition(e),
+        return handleExceptionInternal(exceptionMapper.isInstanceOfExcepition(e),
                 exceptionMapper.getRootCauseMessage(e), new HttpHeaders(),
                 HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+
 }
