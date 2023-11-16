@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 
     env:
-      SONAR_TOKEN: "e78dda7e95416ec703e3e1e4b8c522f5dce2fa80"
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       sonar.organization: "pk4reta"
       sonar.projectKey: "FlavioLimas_mini-autorizador"
 
