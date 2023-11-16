@@ -11,7 +11,7 @@ on:
     env:
       SONAR_TOKEN: "e78dda7e95416ec703e3e1e4b8c522f5dce2fa80"
       sonar.organization: "pk4reta"
-      sonar.projectKey: "mini-autorizador"
+      sonar.projectKey: "FlavioLimas_mini-autorizador"
 
 jobs:
   build:
