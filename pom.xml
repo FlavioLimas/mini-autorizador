@@ -160,6 +160,7 @@
 							<excludes>
 								<exclude>**/io/swagger/**</exclude>
 								<exclude>**/src/test/**</exclude>
+								<exclude>**/ExceptionController.java</exclude>
 								<exclude>**/MiniAutorizadorApplication.java</exclude>
 							</excludes>
 						</configuration>
