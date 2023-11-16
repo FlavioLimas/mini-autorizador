@@ -132,16 +132,6 @@
 	</build>
 	<profiles>
 		<profile>
-			<id>docker</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
 			<id>sonar-coverage</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
