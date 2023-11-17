@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -66,7 +67,7 @@ class CardServiceTest {
     void testShouldPassWhenThrowNON_EXISTENT_CARD() {
         when(repository.findByNumber(anyString())).thenReturn(Optional.empty());
         MiniAutorizationException error = assertThrows(MiniAutorizationException.class, () ->
-                service.findByNumber(CardTemplate.validCardDTO().getNumeroCartao()),
+                        service.findByNumber(CardTemplate.validCardDTO().getNumeroCartao()),
                 "Assertion fail, Exception not throws");
         assertEquals(MiniAutorizationErrors.NON_EXISTENT_CARD.getMessage(), error.getMessage(),
                 "Assertion fail, message error invalid");
@@ -81,7 +82,7 @@ class CardServiceTest {
         when(repository.findByNumber(anyString())).thenReturn(Optional.of(card));
         when(mapper.from(any(CardEntity.class))).thenReturn(CardTemplate.validCardDTO());
         CardDTO cardDTO = service.findByNumber(card.getNumber());
-        assertEquals(card.getId(), cardDTO.getId(),"Assertion fail, message error invalid");
+        assertEquals(card.getId(), cardDTO.getId(), "Assertion fail, message error invalid");
         assertEquals(card.getNumber(), cardDTO.getNumeroCartao(),
                 "Assertion fail, message error invalid");
         assertEquals(card.getPassword(), cardDTO.getSenha(),
@@ -95,6 +96,7 @@ class CardServiceTest {
     @SneakyThrows
     void testShouldPassWhenGetAllThrowCardsNotFound() {
         when(repository.findAll()).thenReturn(Collections.EMPTY_LIST);
+
         MiniAutorizationException error = assertThrows(MiniAutorizationException.class, () ->
                 service.getAll(), "Assertion fail, Exception not throws");
         assertEquals(MiniAutorizationErrors.CARDS_NOT_FOUND.getMessage(), error.getMessage(),
@@ -117,6 +119,16 @@ class CardServiceTest {
         ResponseEntity<Object> response = service.findByCardBalance("6549873025634501");
         assertEquals(HttpStatus.OK, response.getStatusCode(),
                 "Assertion fail, value invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When FindByCardNumber Throws Exception")
+    void testShouldPassWhenFindByCardThrowsException() {
+        MiniAutorizationException exception = assertThrows(MiniAutorizationException.class,
+                ()-> service.findByCardBalance(""),
+                "Assertion fail, Exception Not Throws");
+        assertEquals(MiniAutorizationErrors.VALUE_INVALID.getMessage(), exception.getMessage(),
+                "Assertion fail, message invalid");
     }
 
     @Test
@@ -165,6 +177,34 @@ class CardServiceTest {
                 "Assertion fail, value invalid");
         assertEquals(cardDTOMock.getValor(), cardDTO.getValor(),
                 "Assertion fail, value invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Update CardDTO Is Invalid")
+    @SneakyThrows
+    void testShouldPassWhenUpdateAgendaDTOIsInvalid() {
+        CardSaveDTO cardSaveDTOMock = CardTemplate.validCardSaveDTO();
+        when(repository.findByNumber(anyString())).thenReturn(Optional.empty());
+        when(mapper.toSave(any(CardSaveDTO.class))).thenReturn(new CardEntity());
+        when(repository.save(any())).thenReturn(Optional.empty());
+
+        ClassCastException exception = assertThrows(ClassCastException.class,
+                () -> service.save(cardSaveDTOMock),
+                "Assertion fail, Exception Not Throws");
+        assertNotNull(exception.getMessage(), "Assertion fail, message invalid");
+    }
+
+    @Test
+    @DisplayName("Should Pass When Save Check Value Throw Value Invalid")
+    @SneakyThrows
+    void testShouldPassWhenSaveCheckValueThrowValueInvalid() {
+        CardSaveDTO cardSaveDTOMock = CardTemplate.validCardSaveDTO();
+        cardSaveDTOMock.setNumeroCartao(null);
+        MiniAutorizationException exception = assertThrows(MiniAutorizationException.class,
+                () -> service.save(cardSaveDTOMock),
+                "Assertion fail, Exception Not Throws");
+        assertEquals(MiniAutorizationErrors.VALUE_INVALID.getMessage(), exception.getMessage(),
+                "Assertion fail, message invalid");
     }
 
     @Test
