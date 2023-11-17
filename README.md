@@ -1,3 +1,4 @@
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
 [![Maven Central](https://img.shields.io/maven-central/v/org.testng/testng.svg)](https://maven-badges.herokuapp.com/maven-central/org.testng/testng)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=FlavioLimas_mini-autorizador&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=FlavioLimas_mini-autorizador)
